@@ -9,6 +9,10 @@ const utils = {
     * @return {String} 00:00 or 00:00:00
     */
     secondToTime: (second) => {
+        // fix： When wechat Browser init，dtime show：infinity NaN:NaN。
+        if (!Number.isFinite(second)) {
+            return '00:00';
+        }
         const add0 = (num) => num < 10 ? '0' + num : '' + num;
         const hour = Math.floor(second / 3600);
         const min = Math.floor((second - hour * 3600) / 60);
